@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Mini URL</title>
+</head>
+<body>
+
+	<header th:insert="fragments/navbar.html :: navbar"> </header>
+
+	<h1>Result</h1>
+	<p th:text="'id: ' + ${longurl.id}" />
+	<p th:text="'content: ' + ${longurl.originalurl}" />
+	<a href="/generatesort">Make new sort link</a>
+</body>
+</html>
