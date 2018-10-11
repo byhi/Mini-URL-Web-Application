@@ -24,16 +24,10 @@ public class LongUrlService {
 		this.sortUrlService = sortUrlService;		
 	}
 
-/*	@Autowired
-	public void setShortUrlService(ShortUrlService sortUrlService) {
-		this.sortUrlService = sortUrlService;		
-	}*/
 	
 	public void init(Longurl longurl) {
 		longUrlRepository.save(longurl);	
 		sortUrlService.init(longurl);
-		
-
 	}
 
 	public long getCout() {

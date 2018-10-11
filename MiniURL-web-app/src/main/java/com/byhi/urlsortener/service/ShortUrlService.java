@@ -20,7 +20,6 @@ public class ShortUrlService {
 		ShortUrl s = new ShortUrl();
 		s.setLongUrl(longurl);
 		s.setSortUrl(IDConverter.INSTANCE.createUniqueID(longurl.getId()));
-		shortUrlRepository.save(s);
-		
+		shortUrlRepository.save(s);		
 	}
 }

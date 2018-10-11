@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.byhi.urlsortener.domain.Longurl;
 
-@Repository
+
 public interface LongUrlRepository extends CrudRepository<Longurl, Long> {
 List<Longurl> findAll();
 
