@@ -16,7 +16,7 @@ public class Longurl {
     private long id;
     private String originalurl;
     @OneToMany(mappedBy = "longUrl")
-	private List<SortUrl> sortUrlList;
+	private List<ShortUrl> sortUrlList;
     
     public Longurl() {
 	}
@@ -36,11 +36,11 @@ public class Longurl {
     public void setOriginalurl(String originalurl) {
         this.originalurl = originalurl;
     }
-    public List<SortUrl> getSortUrlList() {
+    public List<ShortUrl> getSortUrlList() {
 		return sortUrlList;
 	}
 
-	public void setSortUrlList(ArrayList<SortUrl> sortUrlList) {
+	public void setSortUrlList(ArrayList<ShortUrl> sortUrlList) {
 		this.sortUrlList = sortUrlList;
 	}
 

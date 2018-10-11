@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class SortUrl {
+public class ShortUrl {
 	@GeneratedValue
 	@Id
 	private Long id;
@@ -15,7 +15,7 @@ public class SortUrl {
 	private Longurl longUrl;
 	
 	
-	public SortUrl() {
+	public ShortUrl() {
 	}
 
 	public Long getId() {
@@ -34,12 +34,12 @@ public class SortUrl {
 		this.sortUrl = sortUrl;
 	}
 
-	public Longurl getLongUrlEntity() {
+	public Longurl getLongUrl() {
 		return longUrl;
 	}
 
-	public void setLongUrlEntity(Longurl longUrlEntity) {
-		this.longUrl = longUrlEntity;
+	public void setLongUrl(Longurl longUrl) {
+		this.longUrl = longUrl;
 	}
 	
 }
