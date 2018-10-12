@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.byhi.urlsortener.domain.Longurl;
-import com.byhi.urlsortener.domain.ShortUrl;
 import com.byhi.urlsortener.repository.LongUrlRepository;
-import com.byhi.urlsortener.repository.ShortUrlReposiroty;
+
 
 @Service
 public class LongUrlService {
 
 	LongUrlRepository longUrlRepository;
 	ShortUrlService sortUrlService;
+	
 	
 	@Autowired
 	public void setLongUrlRepositor(LongUrlRepository longUrlRepositor) {
@@ -25,12 +25,38 @@ public class LongUrlService {
 	}
 
 	
-	public void init(Longurl longurl) {
-		longUrlRepository.save(longurl);	
-		sortUrlService.init(longurl);
+	//public void init(Longurl longurl) {
+	//	longUrlRepository.save(longurl);
+	//	sortUrlService.init(longurl);
+		
+	//}
+	public void init(String url, String userdefiniton) {
+		Longurl longurl = new Longurl();
+		longurl.setOriginalurl(url);
+		longUrlRepository.save(longurl);
+		sortUrlService.init(longurl, userdefiniton);
+	}
+	public boolean isShortUrlExist(String url, String userdefiniton) {
+		Longurl longurl = findByOriginalUrl(url);
+		
+		return sortUrlService.isShortUrlExist(longurl, userdefiniton);
 	}
 
-	public long getCout() {
-		return longUrlRepository.count();
+	
+	public boolean isUrlExist(String string) {	
+			return longUrlRepository.findByOriginalUrl(string)==null ? false : true;
 	}
+	
+	public Longurl findByOriginalUrl(String originalurl) {
+		Longurl l = longUrlRepository.findByOriginalUrl(originalurl);
+		return l;	
+	}
+
+	public void addShortUrlforThis(String url, String userdefiniton) {
+		sortUrlService.init(longUrlRepository.findByOriginalUrl(url), userdefiniton);		
+	}
+
+	
+	
+
 }

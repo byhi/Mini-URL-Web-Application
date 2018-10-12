@@ -20,9 +20,19 @@
 
 	<header th:insert="fragments/navbar.html :: navbar"> </header>
 
+<div class="container">
 	<h1>Result</h1>
-	<p th:text="'id: ' + ${longurl.id}" />
-	<p th:text="'content: ' + ${longurl.originalurl}" />
+	
+	<div class="alert alert-warning" role="alert" th:if="${warning == 'fail' }">
+     WARNING: Already there exist this short link! 
+	</div>
+	<div class="alert alert-success" role="alert" th:if="${warning != 'fail' }">
+     SUCCESS: Generation was succeed! 
+	</div>
+	<p th:text="'original: ' + ${formdata.url}" />
+	<p th:text="'userdefinition ' + ${formdata.userdefiniton}" />
+	<p th:text="'sortedurl ' + ${sortedurl}" />
 	<a href="/generatesort">Make new sort link</a>
+</div><!-- container -->
 </body>
 </html>

@@ -10,7 +10,7 @@ public class ShortUrl {
 	@GeneratedValue
 	@Id
 	private Long id;
-	private String sortUrl;
+	private String shortUrl;
 	@ManyToOne
 	private Longurl longUrl;
 	
@@ -26,12 +26,12 @@ public class ShortUrl {
 		this.id = id;
 	}
 
-	public String getSortUrl() {
-		return sortUrl;
+	public String getShortUrl() {
+		return shortUrl;
 	}
 
-	public void setSortUrl(String sortUrl) {
-		this.sortUrl = sortUrl;
+	public void setShortUrl(String shortUrl) {
+		this.shortUrl = shortUrl;
 	}
 
 	public Longurl getLongUrl() {
