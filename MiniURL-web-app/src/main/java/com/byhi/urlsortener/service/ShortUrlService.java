@@ -24,7 +24,7 @@ public class ShortUrlService {
 	public void getAllShortUrls(Longurl longurl) {
 		longurl.setSortUrlList(shortUrlRepository.findAll());
 	}
-	//átnézni
+	
 	public void init(Longurl longurl, String userdefiniton) {
 		ShortUrl s = new ShortUrl();
 		s.setLongUrl(longurl);

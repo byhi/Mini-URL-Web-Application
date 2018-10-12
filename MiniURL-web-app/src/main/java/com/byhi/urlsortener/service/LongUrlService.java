@@ -9,10 +9,8 @@ import com.byhi.urlsortener.repository.LongUrlRepository;
 
 @Service
 public class LongUrlService {
-
-	LongUrlRepository longUrlRepository;
-	ShortUrlService sortUrlService;
-	
+	private LongUrlRepository longUrlRepository;
+	private ShortUrlService sortUrlService;	
 	
 	@Autowired
 	public void setLongUrlRepositor(LongUrlRepository longUrlRepositor) {
@@ -24,24 +22,18 @@ public class LongUrlService {
 		this.sortUrlService = sortUrlService;		
 	}
 
-	
-	//public void init(Longurl longurl) {
-	//	longUrlRepository.save(longurl);
-	//	sortUrlService.init(longurl);
-		
-	//}
 	public void init(String url, String userdefiniton) {
 		Longurl longurl = new Longurl();
 		longurl.setOriginalurl(url);
 		longUrlRepository.save(longurl);
 		sortUrlService.init(longurl, userdefiniton);
 	}
+	
 	public boolean isShortUrlExist(String url, String userdefiniton) {
 		Longurl longurl = findByOriginalUrl(url);
 		
 		return sortUrlService.isShortUrlExist(longurl, userdefiniton);
 	}
-
 	
 	public boolean isUrlExist(String string) {	
 			return longUrlRepository.findByOriginalUrl(string)==null ? false : true;
@@ -55,8 +47,5 @@ public class LongUrlService {
 	public void addShortUrlforThis(String url, String userdefiniton) {
 		sortUrlService.init(longUrlRepository.findByOriginalUrl(url), userdefiniton);		
 	}
-
-	
-	
 
 }

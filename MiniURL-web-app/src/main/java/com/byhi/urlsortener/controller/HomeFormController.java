@@ -1,7 +1,5 @@
 package com.byhi.urlsortener.controller;
 
-import java.util.LinkedList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
