@@ -26,6 +26,7 @@ public class ErrorPageController implements ErrorController{
 	public String error(Model model , HttpServletRequest request , WebRequest webRequest) {	
 		Map<String , Object> errorMap =  getErrorAttributes(request, webRequest, true);		
 		model.addAllAttributes(errorMap);
+		//System.err.println(errorMap.put(arg0, arg1));
 		return "error";
 	}
 	

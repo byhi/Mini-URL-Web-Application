@@ -35,8 +35,10 @@ public class ShortUrlService {
 	public String generateShorturl(String userdefiniton, long longurlid) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(hostname);
+		if(!userdefiniton.equals("")) {
 		sb.append(userdefiniton);
 		sb.append('.');
+		}
 		sb.append(IDConverter.INSTANCE.createUniqueID(longurlid));
 		return sb.toString();
 	}
@@ -51,4 +53,20 @@ public class ShortUrlService {
 		ArrayList<ShortUrl> shortUrlList = shortUrlRepository.findByShortUrlById(longurl);
 		return shortUrlList.get( shortUrlList.size()-1).getShortUrl();
 	}
+
+	public long getShortUrlByURL(String string) {
+		ShortUrl shortUrlList = shortUrlRepository.findByShortUrl(string);
+		return shortUrlList.getId();
+	}
+
+	public ShortUrl getShortUrlByID(long id) {
+		// TODO Auto-generated method stub
+		return shortUrlRepository.findByShortUrlById(id);
+	}
+
+	public ArrayList<ShortUrl> getAllShortUrl() {
+		return shortUrlRepository.findAll();		
+	}
+
+	
 }

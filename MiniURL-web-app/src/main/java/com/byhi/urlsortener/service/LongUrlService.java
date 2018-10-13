@@ -1,5 +1,8 @@
 package com.byhi.urlsortener.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +33,7 @@ public class LongUrlService {
 	}
 	
 	public boolean isShortUrlExist(String url, String userdefiniton) {
-		Longurl longurl = findByOriginalUrl(url);
-		
+		Longurl longurl = findByOriginalUrl(url);		
 		return sortUrlService.isShortUrlExist(longurl, userdefiniton);
 	}
 	
@@ -40,12 +42,15 @@ public class LongUrlService {
 	}
 	
 	public Longurl findByOriginalUrl(String originalurl) {
-		Longurl l = longUrlRepository.findByOriginalUrl(originalurl);
-		return l;	
+		return longUrlRepository.findByOriginalUrl(originalurl);
 	}
 
 	public void addShortUrlforThis(String url, String userdefiniton) {
 		sortUrlService.init(longUrlRepository.findByOriginalUrl(url), userdefiniton);		
+	}
+
+	public List<Longurl> getAllLongUrl() {
+		return longUrlRepository.findAll();
 	}
 
 }
