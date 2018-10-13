@@ -18,15 +18,15 @@ public class GeneratedController {
 		this.shortUrlService = shortUrlService;
 	}
 	
-	@GetMapping("/genrated")
+	@GetMapping("/generated")
 	public String genratedGet(Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
 
 		model.addAttribute("formdata", (Formdata) model.asMap().get("formdata"));
 		
-		model.addAttribute("sortedurl", (String) model.asMap().get("sortedurl"));
-		model.addAttribute("sortedurlid",shortUrlService.getShortUrlByURL((String) model.asMap().get("sortedurl")));
+		model.addAttribute("shortedurl", (String) model.asMap().get("shortedurl"));
+		model.addAttribute("shortedurlid",shortUrlService.getShortUrlByURL((String) model.asMap().get("shortedurl")));
 
-		return "genrated";
+		return "generated";
 	}
 
 	

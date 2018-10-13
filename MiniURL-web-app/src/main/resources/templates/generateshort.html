@@ -20,7 +20,7 @@
 	<header th:insert="fragments/navbar.html :: navbar"> </header>
 	<div class="container">
 	<h1>Form</h1>
-	<form action="#" th:action="@{/generatesort}" th:object="${generatesort}" method="post">
+	<form action="#" th:action="@{/generateshort}" th:object="${generateshort}" method="post">
 		<div class="form-group">
 		<label>Url: </label>
 			<input type="text" class="form-control" th:field="*{url}" />

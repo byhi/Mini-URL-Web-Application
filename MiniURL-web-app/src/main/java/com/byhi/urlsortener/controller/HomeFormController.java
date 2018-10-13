@@ -32,14 +32,14 @@ public class HomeFormController {
 		this.shortUrlService = shortUrlService;
 	}
 
-	@GetMapping("/generatesort")
+	@GetMapping("/generateshort")
 	public String shortenerForm(Model model) {
 		model.addAttribute("hostname", hostname);
-		model.addAttribute("generatesort", new Formdata());
-		return "generatesort";
+		model.addAttribute("generateshort", new Formdata());
+		return "generateshort";
 	}
 
-	@PostMapping("/generatesort")
+	@PostMapping("/generateshort")
 	public RedirectView shortenerSubmit(@ModelAttribute Formdata formdata, Model model,
 			RedirectAttributes redirectAttrs) {
 		if (checkLongUrl(formdata)) {
@@ -51,9 +51,9 @@ public class HomeFormController {
 		} else {
 			createLongUrl(formdata);
 		}
-		redirectAttrs.addAttribute("msg", "genrated");
+		redirectAttrs.addAttribute("msg", "generated");
 		redirectAttrs.addFlashAttribute("formdata", formdata);
-		redirectAttrs.addFlashAttribute("sortedurl", getShortUrl(formdata));
+		redirectAttrs.addFlashAttribute("shortedurl", getShortUrl(formdata));
 
 		RedirectView redirectView = new RedirectView();
 		redirectView.setContextRelative(true);

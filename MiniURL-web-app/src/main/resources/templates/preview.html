@@ -4,25 +4,21 @@
 <head>
 <meta charset="UTF-8">
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Mini URL</title>
 </head>
 <body>
-	<header th:insert="fragments/navbar.html :: navbar"> </header>
+	<header th:insert="fragments/navbar.html :: navbar"></header>
 	<div class="container">
-	<h1>Url link </h1>
-	<p th:text="'shortUrl: ' + ${shortUrl}" />
-	<p th:text="'longurl: ' + ${longurl}" />
-	<a href="/preview" th:href="@{${longurl}}" th:text="${longurl}">Url</a>
-	</div><!-- container -->
+		<h1>Url link </h1>
+		<p th:text="'shortUrl: ' + ${shortUrl}" />
+		<p th:text="'longurl: ' + ${longurl}" />
+		<a href="/preview" th:href="@{${longurl}}" th:text="${longurl}">Short Url</a>
+	</div>
+	<!-- container -->
 </body>
 </html>
