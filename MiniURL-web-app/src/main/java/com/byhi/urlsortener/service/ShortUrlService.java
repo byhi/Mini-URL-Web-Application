@@ -1,9 +1,7 @@
 package com.byhi.urlsortener.service;
 
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.byhi.urlsortener.domain.Longurl;
 import com.byhi.urlsortener.domain.ShortUrl;
@@ -12,9 +10,6 @@ import com.byhi.urlsortener.repository.ShortUrlReposiroty;
 @Service
 public class ShortUrlService {
 	private ShortUrlReposiroty shortUrlRepository;
-	
-	@Value("${ShortUrlService.hostname}")
-	private String hostname;
 	
 	@Autowired
 	public void setShortUrlReposiroty(ShortUrlReposiroty shortUrlRepository) {
@@ -34,7 +29,6 @@ public class ShortUrlService {
 	
 	public String generateShorturl(String userdefiniton, long longurlid) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(hostname);
 		if(!userdefiniton.equals("")) {
 		sb.append(userdefiniton);
 		sb.append('.');
@@ -54,18 +48,21 @@ public class ShortUrlService {
 		return shortUrlList.get( shortUrlList.size()-1).getShortUrl();
 	}
 
-	public long getShortUrlByURL(String string) {
+	public Long getShortUrlByURL(String string){
 		ShortUrl shortUrlList = shortUrlRepository.findByShortUrl(string);
-		return shortUrlList.getId();
+		return shortUrlList==null ? null : shortUrlList.getId();
 	}
 
 	public ShortUrl getShortUrlByID(long id) {
-		// TODO Auto-generated method stub
 		return shortUrlRepository.findByShortUrlById(id);
 	}
 
 	public ArrayList<ShortUrl> getAllShortUrl() {
 		return shortUrlRepository.findAll();		
+	}
+
+	public boolean isShortUrlExist(String url) {
+		return getShortUrlByURL(url)!=null;
 	}
 
 	

@@ -16,7 +16,6 @@ public class ErrorPageController implements ErrorController{
 	private final static String ERROR_PATH = "/error";
 	private ErrorAttributes errorAttributes;
 	
-	
 	@Autowired
 	public void setErrorAttributes(ErrorAttributes errorAttributes) {
 		this.errorAttributes = errorAttributes;
@@ -25,16 +24,12 @@ public class ErrorPageController implements ErrorController{
 	@RequestMapping(ERROR_PATH)
 	public String error(Model model , HttpServletRequest request , WebRequest webRequest) {	
 		Map<String , Object> errorMap =  getErrorAttributes(request, webRequest, true);		
-		model.addAllAttributes(errorMap);
-		//System.err.println(errorMap.put(arg0, arg1));
+		model.addAllAttributes(errorMap);		
 		return "error";
 	}
 	
 	private Map<String, Object> getErrorAttributes(HttpServletRequest request, WebRequest webRequest, boolean includeStackTrace) {
-
-	//RequestAttributes requestAttributes = new ServletRequestAttributes(request);
 	return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
-	
 	}
 	
 	@Override

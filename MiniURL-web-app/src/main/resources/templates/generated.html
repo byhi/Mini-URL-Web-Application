@@ -6,35 +6,29 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Mini URL</title>
 </head>
 <body>
-
-	<header th:insert="fragments/navbar.html :: navbar"> </header>
-
-<div class="container">
-	<h1>Result</h1>
-	
-	<div class="alert alert-warning" role="alert" th:if="${warning == 'fail' }">
-     WARNING: Already there exist this short link! 
+	<header th:insert="fragments/navbar.html :: navbar"></header>
+	<div class="container">
+		<h2>Result</h2>
+		<div class="alert alert-warning" role="alert"
+			th:if="${warning == 'fail' }">WARNING: Already there exist this
+			short link!
+		</div>
+		<div class="alert alert-success" role="alert"
+			th:if="${warning != 'fail' }">SUCCESS: Generation was succeed!
+		</div>
+		<!--  -->
+		<h4>Shorted url:</h4>
+		<p th:text="${shortedurl}" />
+		<a href="/preview" th:href="${shortedurl}">Preview</a>
 	</div>
-	<div class="alert alert-success" role="alert" th:if="${warning != 'fail' }">
-     SUCCESS: Generation was succeed! 
-	</div>
-	<!--  -->
-	<p th:text="'original: ' + ${formdata.url}" />
-	<p th:text="'user definition ' + ${formdata.userdefiniton}" />
-	
-	<p th:text="'shorted url ' + ${shortedurl}" />
-	<a href="/preview" th:href="@{/preview(shorturl= ${shortedurlid})}">Preview</a>
-</div><!-- container -->
+	<!-- container -->
 </body>
 </html>
