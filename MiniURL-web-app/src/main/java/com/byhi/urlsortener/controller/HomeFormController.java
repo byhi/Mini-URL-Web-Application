@@ -42,16 +42,17 @@ public class HomeFormController {
 	@PostMapping("/generateshort")
 	public RedirectView shortenerSubmit(@ModelAttribute Formdata formdata, Model model,
 			RedirectAttributes redirectAttrs) {
+		redirectAttrs.addAttribute("msg", "generated");
 		if (checkLongUrl(formdata)) {
-			if (checkShortUrl(formdata)) {
-				model.addAttribute("warning", "fail");
+			if (checkShortUrl(formdata)) {			
+				redirectAttrs.addFlashAttribute("warning", "fail");
 			} else {
 				createShortUrl(formdata);
 			}
 		} else {
 			createLongUrl(formdata);
 		}
-		redirectAttrs.addAttribute("msg", "generated");
+		
 		redirectAttrs.addFlashAttribute("formdata", formdata);
 		redirectAttrs.addFlashAttribute("shortedurl", getShortUrl(formdata));
 

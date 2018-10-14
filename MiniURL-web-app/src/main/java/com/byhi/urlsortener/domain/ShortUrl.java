@@ -1,21 +1,40 @@
 package com.byhi.urlsortener.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "shorturl")
 public class ShortUrl {
-	@GeneratedValue
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name = "id")
 	private Long id;
+	@Column(name = "shorturl")
 	private String shortUrl;
 	@ManyToOne
 	private Longurl longUrl;
-	
-	
+
 	public ShortUrl() {
+	}
+
+	public ShortUrl(Longurl longUrl, String shortUrl) {
+		this.longUrl = longUrl;
+		this.shortUrl = shortUrl;
+	}
+
+	public ShortUrl(String shortUrl) {
+		this.shortUrl = shortUrl;
+	}
+
+	public ShortUrl(Longurl longUrl) {
+		this.longUrl = longUrl;
 	}
 
 	public Long getId() {
@@ -41,5 +60,5 @@ public class ShortUrl {
 	public void setLongUrl(Longurl longUrl) {
 		this.longUrl = longUrl;
 	}
-	
+
 }

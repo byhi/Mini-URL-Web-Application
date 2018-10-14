@@ -9,15 +9,15 @@ import com.byhi.urlsortener.service.UrlService;
 @Controller
 public class ListController {
 	private UrlService urlService;
-	
+
 	@Autowired
 	public void setUrlService(UrlService urlService) {
 		this.urlService = urlService;
 	}
 
 	@RequestMapping("/urllist")
-	public String urlShortener(Model model) {		
-		model.addAttribute("urls",  urlService.giveMeAllUrl());
+	public String urlShortener(Model model) {
+		model.addAttribute("urls", urlService.giveMeAllUrl());
 		return "urllist";
-	}	
+	}
 }
