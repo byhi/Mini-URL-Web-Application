@@ -17,7 +17,7 @@ public class ListController {
 
 	@RequestMapping("/urllist")
 	public String urlShortener(Model model) {
-		model.addAttribute("urls", urlService.giveMeAllUrl());
+		model.addAttribute("urls", urlService.giveAllUrl());
 		return "urllist";
 	}
 }

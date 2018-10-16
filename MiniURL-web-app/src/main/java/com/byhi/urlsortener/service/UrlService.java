@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import com.byhi.urlsortener.pojo.Url;
 
 public interface UrlService {
-	public ArrayList<Url> giveMeAllUrl();
+	public ArrayList<Url> giveAllUrl();
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.byhi.urlsortener.exception.ResourceNotFoundException;
 import com.byhi.urlsortener.service.ShortUrlServiceImpl;
 
 import javassist.NotFoundException;
@@ -41,9 +42,8 @@ public class HomeController {
 			redirectAttrs.addFlashAttribute("shortedurlid", id);
 			redirectView.setUrl("/{msg}");
 			return redirectView;
-		} else {
-			redirectView.setUrl("/");
-			return redirectView;
+		} else {			
+			throw new ResourceNotFoundException();
 		}
 	}
 }

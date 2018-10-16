@@ -30,7 +30,7 @@ public class UrlServiceImpl implements UrlService {
 		this.shortUrlService = shortUrlService;
 	}
 
-	public ArrayList<Url> giveMeAllUrl() {
+	public ArrayList<Url> giveAllUrl() {
 		ArrayList<Url> urlslist = new ArrayList<Url>();
 		List<Longurl> lh = longUrlService.getAllLongUrl();
 		if (!lh.isEmpty()) {
