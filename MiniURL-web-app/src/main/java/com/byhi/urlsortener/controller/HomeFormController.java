@@ -11,24 +11,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.byhi.urlsortener.pojo.Formdata;
-import com.byhi.urlsortener.service.LongUrlService;
-import com.byhi.urlsortener.service.ShortUrlService;
+import com.byhi.urlsortener.service.LongUrlServiceImpl;
+import com.byhi.urlsortener.service.ShortUrlServiceImpl;
 
 @Controller
 public class HomeFormController {
 	@Value("${ShortUrlService.hostname}")
 	private String hostname;
 
-	private LongUrlService longUrlService;
-	private ShortUrlService shortUrlService;
+	private LongUrlServiceImpl longUrlService;
+	private ShortUrlServiceImpl shortUrlService;
 
 	@Autowired
-	public void setLongUrlService(LongUrlService longUrlService) {
+	public void setLongUrlService(LongUrlServiceImpl longUrlService) {
 		this.longUrlService = longUrlService;
 	}
 
 	@Autowired
-	public void setShortUrlService(ShortUrlService shortUrlService) {
+	public void setShortUrlService(ShortUrlServiceImpl shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
 
@@ -63,7 +63,8 @@ public class HomeFormController {
 	}
 
 	private boolean checkShortUrl(Formdata formdata) {
-		return longUrlService.isShortUrlExist(formdata.getUrl(), formdata.getUserdefiniton());
+		
+		return shortUrlService.isShortUrlExist(longUrlService.findByOriginalUrl(formdata.getUrl()), formdata.getUserdefiniton());
 	}
 
 	private boolean checkLongUrl(Formdata formdata) {

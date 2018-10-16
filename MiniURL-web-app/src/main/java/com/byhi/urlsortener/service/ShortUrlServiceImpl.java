@@ -8,7 +8,7 @@ import com.byhi.urlsortener.domain.ShortUrl;
 import com.byhi.urlsortener.repository.ShortUrlReposiroty;
 
 @Service
-public class ShortUrlService {
+public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<Longurl>,URLChecker {
 
 	private ShortUrlReposiroty shortUrlRepository;
 
@@ -17,15 +17,11 @@ public class ShortUrlService {
 		this.shortUrlRepository = shortUrlRepository;
 	}
 
-	public void getAllShortUrls(Longurl longurl) {
-		longurl.setSortUrlList(shortUrlRepository.findAll());
-	}
-
+	
 	public void init(Longurl longurl, String userdefiniton) {
 		ShortUrl shortUrl = shortUrlRepository.save(new ShortUrl(generateShorturl(userdefiniton, longurl.getId())));
 		shortUrl.setLongUrl(longurl);
 		shortUrlRepository.save(shortUrl);
-
 	}
 
 	public String generateShorturl(String userdefiniton, long longurlid) {
@@ -35,7 +31,7 @@ public class ShortUrlService {
 			stringbuilder.append(userdefiniton);
 			stringbuilder.append('.');
 		}
-		stringbuilder.append(IDConverterService.INSTANCE.createUniqueID(longurlid));
+		stringbuilder.append(IDConverterServiceImpl.INSTANCE.createUniqueID(longurlid));
 		return stringbuilder.toString();
 	}
 
@@ -53,16 +49,15 @@ public class ShortUrlService {
 		return shortUrlList == null ? null : shortUrlList.getId();
 	}
 
-	public ShortUrl getShortUrlByID(long id) {
+	public ShortUrl getUrlByID(long id) {
 		return shortUrlRepository.findByShortUrlById(id);
 	}
 
-	public ArrayList<ShortUrl> getAllShortUrl() {
+	public ArrayList<ShortUrl> getAllUrl() {
 		return shortUrlRepository.findAll();
 	}
 
-	public boolean isShortUrlExist(String url) {
+	public boolean isUrlExist(String url) {
 		return getShortUrlByURL(url) != null;
 	}
-
 }

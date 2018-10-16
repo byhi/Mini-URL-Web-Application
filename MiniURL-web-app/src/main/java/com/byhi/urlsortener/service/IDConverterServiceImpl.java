@@ -8,10 +8,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IDConverterService {
-	public static final IDConverterService INSTANCE = new IDConverterService();
+public class IDConverterServiceImpl implements IDConverterService{
+	public static final IDConverterServiceImpl INSTANCE = new IDConverterServiceImpl();
 
-	private IDConverterService() {
+	private IDConverterServiceImpl() {
 		initializeCharToIndexTable();
 		initializeIndexToCharTable();
 	}

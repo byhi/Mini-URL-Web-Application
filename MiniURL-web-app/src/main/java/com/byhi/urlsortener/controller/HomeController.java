@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.byhi.urlsortener.service.ShortUrlService;
+import com.byhi.urlsortener.service.ShortUrlServiceImpl;
 
 import javassist.NotFoundException;
 
 @Controller
 public class HomeController {
 
-	private ShortUrlService shortUrlService;
+	private ShortUrlServiceImpl shortUrlService;
 
 	@Autowired
-	public void setShortUrlService(ShortUrlService shortUrlService) {
+	public void setShortUrlService(ShortUrlServiceImpl shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
 
@@ -35,7 +35,7 @@ public class HomeController {
 		if (url.equals("")) {
 			redirectView.setUrl("/index");
 			return redirectView;
-		} else if (shortUrlService.isShortUrlExist(url)) {
+		} else if (shortUrlService.isUrlExist(url)) {
 			Long id = shortUrlService.getShortUrlByURL(url);
 			redirectAttrs.addAttribute("msg", "preview");
 			redirectAttrs.addFlashAttribute("shortedurlid", id);

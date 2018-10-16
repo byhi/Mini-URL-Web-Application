@@ -12,21 +12,21 @@ import com.byhi.urlsortener.domain.ShortUrl;
 import com.byhi.urlsortener.pojo.Url;
 
 @Service
-public class UrlService {
+public class UrlServiceImpl implements UrlService {
 
 	@Value("${ShortUrlService.hostname}")
 	private String hostname;
 
-	private LongUrlService longUrlService;
-	private ShortUrlService shortUrlService;
+	private LongUrlServiceImpl longUrlService;
+	private ShortUrlServiceImpl shortUrlService;
 
 	@Autowired
-	public void setLongUrlService(LongUrlService longUrlService) {
+	public void setLongUrlService(LongUrlServiceImpl longUrlService) {
 		this.longUrlService = longUrlService;
 	}
 
 	@Autowired
-	public void setShortUrlService(ShortUrlService shortUrlService) {
+	public void setShortUrlService(ShortUrlServiceImpl shortUrlService) {
 		this.shortUrlService = shortUrlService;
 	}
 
@@ -35,7 +35,7 @@ public class UrlService {
 		List<Longurl> lh = longUrlService.getAllLongUrl();
 		if (!lh.isEmpty()) {
 
-			List<ShortUrl> sh = shortUrlService.getAllShortUrl();
+			List<ShortUrl> sh = shortUrlService.getAllUrl();
 
 			for (ShortUrl url : sh) {
 				boolean b = true;
