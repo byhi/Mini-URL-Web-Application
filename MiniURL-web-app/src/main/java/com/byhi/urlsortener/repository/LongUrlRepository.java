@@ -12,5 +12,5 @@ public interface LongUrlRepository extends CrudRepository<Longurl, Long> {
 	List<Longurl> findAll();
 
 	@Query("SELECT a FROM Longurl a WHERE a.originalurl=:originalurl")
-	Longurl findByOriginalUrl(@Param("originalurl") String originalurl);
+	Longurl findByUrl(@Param("originalurl") String originalurl);
 }

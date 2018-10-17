@@ -7,40 +7,27 @@ import com.byhi.urlsortener.domain.Longurl;
 import com.byhi.urlsortener.repository.LongUrlRepository;
 
 @Service
-public class LongUrlServiceImpl implements LongUrlService,URLChecker{
+public class LongUrlServiceImpl implements LongUrlService{
 	private LongUrlRepository longUrlRepository;
-	private ShortUrlServiceImpl sortUrlService;
 
 	@Autowired
 	public void setLongUrlRepositor(LongUrlRepository longUrlRepositor) {
 		this.longUrlRepository = longUrlRepositor;
 	}
 
-	@Autowired
-	public void setShortUrlService(ShortUrlServiceImpl sortUrlService) {
-		this.sortUrlService = sortUrlService;
+	public Longurl init(String url) {
+		return longUrlRepository.save(new Longurl(url));		
 	}
 
-	public void init(String url, String userdefiniton) {
-
-		Longurl longurl = longUrlRepository.save(new Longurl(url));
-		sortUrlService.init(longurl, userdefiniton);
+	public boolean isURLExist(String string) {
+		return longUrlRepository.findByUrl(string) == null ? false : true;
 	}
 
-	public boolean isUrlExist(String string) {
-		return longUrlRepository.findByOriginalUrl(string) == null ? false : true;
+	public Longurl getLongurlByURL(String originalurl) {
+		return longUrlRepository.findByUrl(originalurl);
 	}
 
-	public Longurl findByOriginalUrl(String originalurl) {
-		return longUrlRepository.findByOriginalUrl(originalurl);
-	}
-
-	public void addShortUrlforThis(String url, String userdefiniton) {
-		Longurl longurl = longUrlRepository.findByOriginalUrl(url);
-		sortUrlService.init(longurl, userdefiniton);
-	}
-
-	public List<Longurl> getAllLongUrl() {
+	public List<Longurl> getAllURL() {
 		return longUrlRepository.findAll();
 	}
 

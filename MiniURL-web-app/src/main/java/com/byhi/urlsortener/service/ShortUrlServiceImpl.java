@@ -1,6 +1,8 @@
 package com.byhi.urlsortener.service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.byhi.urlsortener.domain.Longurl;
@@ -8,7 +10,7 @@ import com.byhi.urlsortener.domain.ShortUrl;
 import com.byhi.urlsortener.repository.ShortUrlReposiroty;
 
 @Service
-public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<Longurl>,URLChecker {
+public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<ShortUrl, Longurl, Long> {
 
 	private ShortUrlReposiroty shortUrlRepository;
 
@@ -17,7 +19,6 @@ public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<L
 		this.shortUrlRepository = shortUrlRepository;
 	}
 
-	
 	public void init(Longurl longurl, String userdefiniton) {
 		ShortUrl shortUrl = shortUrlRepository.save(new ShortUrl(generateShorturl(userdefiniton, longurl.getId())));
 		shortUrl.setLongUrl(longurl);
@@ -36,7 +37,8 @@ public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<L
 	}
 
 	public boolean isShortUrlExist(Longurl longurl, String userdefiniton) {
-		return shortUrlRepository.findByShortUrl(generateShorturl(userdefiniton, longurl.getId())) != null ? true : false;
+		return shortUrlRepository.findByShortUrl(generateShorturl(userdefiniton, longurl.getId())) != null ? true
+				: false;
 	}
 
 	public String getShortUrlByLongUrl(Longurl longurl) {
@@ -44,7 +46,7 @@ public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<L
 		return shortUrlList.get(shortUrlList.size() - 1).getShortUrl();
 	}
 
-	public Long getShortUrlByURL(String string) {
+	public Long getIDByURL(String string) {
 		ShortUrl shortUrlList = shortUrlRepository.findByShortUrl(string);
 		return shortUrlList == null ? null : shortUrlList.getId();
 	}
@@ -53,11 +55,12 @@ public class ShortUrlServiceImpl implements ShortUrlGenerator, ShortUrlService<L
 		return shortUrlRepository.findByShortUrlById(id);
 	}
 
-	public ArrayList<ShortUrl> getAllUrl() {
+	public List<ShortUrl> getAllURL() {
 		return shortUrlRepository.findAll();
 	}
 
-	public boolean isUrlExist(String url) {
-		return getShortUrlByURL(url) != null;
+	public boolean isURLExist(String url) {
+		return getIDByURL(url) != null;
 	}
+
 }

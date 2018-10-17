@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.byhi.urlsortener.service.UrlService;
 import com.byhi.urlsortener.service.UrlServiceImpl;
 
 @Controller
 public class ListController {
-	private UrlServiceImpl urlService;
+	private UrlService urlService;
 
 	@Autowired
 	public void setUrlService(UrlServiceImpl urlService) {
@@ -17,7 +19,7 @@ public class ListController {
 
 	@RequestMapping("/urllist")
 	public String urlShortener(Model model) {
-		model.addAttribute("urls", urlService.giveAllUrl());
+		model.addAttribute("urls", urlService.getAllURL());
 		return "urllist";
 	}
 }

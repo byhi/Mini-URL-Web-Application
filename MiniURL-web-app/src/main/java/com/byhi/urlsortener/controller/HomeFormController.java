@@ -10,17 +10,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.byhi.urlsortener.domain.Longurl;
+import com.byhi.urlsortener.domain.ShortUrl;
 import com.byhi.urlsortener.pojo.Formdata;
+import com.byhi.urlsortener.service.LongUrlService;
 import com.byhi.urlsortener.service.LongUrlServiceImpl;
+import com.byhi.urlsortener.service.ShortUrlService;
 import com.byhi.urlsortener.service.ShortUrlServiceImpl;
+import com.byhi.urlsortener.service.UrlService;
+import com.byhi.urlsortener.service.UrlServiceImpl;
 
 @Controller
 public class HomeFormController {
-	@Value("${ShortUrlService.hostname}")
-	private String hostname;
+	@Value("${server.path}")
+	private String hostpath;
 
-	private LongUrlServiceImpl longUrlService;
-	private ShortUrlServiceImpl shortUrlService;
+	private LongUrlService longUrlService;
+	private ShortUrlService<ShortUrl, Longurl, Long> shortUrlService;
+	private UrlService urlService;
+
+	@Autowired
+	public void setLongUrlService(UrlServiceImpl urlService) {
+		this.urlService = urlService;
+	}
 
 	@Autowired
 	public void setLongUrlService(LongUrlServiceImpl longUrlService) {
@@ -34,7 +46,7 @@ public class HomeFormController {
 
 	@GetMapping("/generateshort")
 	public String shortenerForm(Model model) {
-		model.addAttribute("hostname", hostname);
+		model.addAttribute("hostname", hostpath);
 		model.addAttribute("generateshort", new Formdata());
 		return "generateshort";
 	}
@@ -44,7 +56,7 @@ public class HomeFormController {
 			RedirectAttributes redirectAttrs) {
 		redirectAttrs.addAttribute("msg", "generated");
 		if (checkLongUrl(formdata)) {
-			if (checkShortUrl(formdata)) {			
+			if (checkShortUrl(formdata)) {
 				redirectAttrs.addFlashAttribute("warning", "fail");
 			} else {
 				createShortUrl(formdata);
@@ -52,7 +64,7 @@ public class HomeFormController {
 		} else {
 			createLongUrl(formdata);
 		}
-		
+
 		redirectAttrs.addFlashAttribute("formdata", formdata);
 		redirectAttrs.addFlashAttribute("shortedurl", getShortUrl(formdata));
 
@@ -63,24 +75,25 @@ public class HomeFormController {
 	}
 
 	private boolean checkShortUrl(Formdata formdata) {
-		
-		return shortUrlService.isShortUrlExist(longUrlService.findByOriginalUrl(formdata.getUrl()), formdata.getUserdefiniton());
+
+		return shortUrlService.isShortUrlExist(longUrlService.getLongurlByURL(formdata.getUrl()),
+				formdata.getUserdefiniton());
 	}
 
 	private boolean checkLongUrl(Formdata formdata) {
-		return longUrlService.isUrlExist(formdata.getUrl());
+		return longUrlService.isURLExist(formdata.getUrl());
 	}
 
 	private void createShortUrl(Formdata formdata) {
-		longUrlService.addShortUrlforThis(formdata.getUrl(), formdata.getUserdefiniton());
+		urlService.addURLforThis(formdata.getUrl(), formdata.getUserdefiniton());
 	}
 
 	private void createLongUrl(Formdata formdata) {
-		longUrlService.init(formdata.getUrl(), formdata.getUserdefiniton());
+		urlService.saveURL(formdata.getUrl(), formdata.getUserdefiniton());
 	}
 
 	private String getShortUrl(Formdata formdata) {
-		return shortUrlService.getShortUrlByLongUrl(longUrlService.findByOriginalUrl(formdata.getUrl()));
+		return shortUrlService.getShortUrlByLongUrl(longUrlService.getLongurlByURL(formdata.getUrl()));
 	}
 
 }

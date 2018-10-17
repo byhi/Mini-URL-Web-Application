@@ -10,12 +10,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class GeneratedController {
 	
-	@Value("${ShortUrlService.hostname}")
-	private String hostname;
+	@Value("${server.path}")
+	private String hostpath;
 		
 	@GetMapping("/generated")
 	public String genratedGet(Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
- 		model.addAttribute("shortedurl", hostname + (String) model.asMap().get("shortedurl"));
+ 		model.addAttribute("shortedurl", hostpath + (String) model.asMap().get("shortedurl"));
 		return "generated";
 	}
 

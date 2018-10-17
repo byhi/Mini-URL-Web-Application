@@ -14,8 +14,8 @@ import com.byhi.urlsortener.pojo.Url;
 @Service
 public class UrlServiceImpl implements UrlService {
 
-	@Value("${ShortUrlService.hostname}")
-	private String hostname;
+	@Value("${server.path}")
+	private String hostpath;
 
 	private LongUrlServiceImpl longUrlService;
 	private ShortUrlServiceImpl shortUrlService;
@@ -30,25 +30,34 @@ public class UrlServiceImpl implements UrlService {
 		this.shortUrlService = shortUrlService;
 	}
 
-	public ArrayList<Url> giveAllUrl() {
-		ArrayList<Url> urlslist = new ArrayList<Url>();
-		List<Longurl> lh = longUrlService.getAllLongUrl();
-		if (!lh.isEmpty()) {
+	public void saveURL(String url, String userdefiniton) {
+		Longurl longurl = longUrlService.init(url);
+		shortUrlService.init(longurl, userdefiniton);
+	}
 
-			List<ShortUrl> sh = shortUrlService.getAllUrl();
+	public void addURLforThis(String url, String userdefiniton) {
+		Longurl longurl = longUrlService.getLongurlByURL(url);
+		shortUrlService.init(longurl, userdefiniton);
+	}
 
-			for (ShortUrl url : sh) {
+	public ArrayList<Url> getAllURL() {
+		ArrayList<Url> urlList = new ArrayList<Url>();
+		List<Longurl> longURLList = longUrlService.getAllURL();
+		if (!longURLList.isEmpty()) {
+			List<ShortUrl> shortURLList = shortUrlService.getAllURL();
+			for (ShortUrl url : shortURLList) {
 				boolean b = true;
 				int i = 0;
 				do {
-					if (url.getLongUrl().equals(lh.get(i))) {
-						urlslist.add(new Url(lh.get(i).getOriginalurl(), hostname + url.getShortUrl()));
+					if (url.getLongUrl().equals(longURLList.get(i))) {
+						urlList.add(new Url(longURLList.get(i).getOriginalurl(), hostpath + url.getShortUrl()));
 						b = false;
 					}
 					i++;
 				} while (b);
 			}
 		}
-		return urlslist;
+		return urlList;
 	}
+
 }

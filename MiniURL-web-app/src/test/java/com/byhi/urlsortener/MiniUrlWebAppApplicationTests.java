@@ -1,4 +1,4 @@
-package com.byhi.demo;
+package com.byhi.urlsortener;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
